@@ -1,0 +1,2 @@
+providers:
+  - Cosnavel\LaravelQueryLocalization\LaravelQueryLocalizationServiceProvider

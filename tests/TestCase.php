@@ -2,9 +2,9 @@
 
 namespace Cosnavel\LaravelQueryLocalization\Tests;
 
+use Cosnavel\LaravelQueryLocalization\LaravelQueryLocalizationServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Cosnavel\LaravelQueryLocalization\LaravelQueryLocalizationServiceProvider;
 
 class TestCase extends Orchestra
 {

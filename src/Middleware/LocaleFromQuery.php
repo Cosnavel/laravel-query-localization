@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Cosnavel\LaravelQueryLocalization\Middleware;
 
 use Closure;

@@ -4,7 +4,6 @@ namespace Cosnavel\LaravelQueryLocalization\Trait;
 
 trait LocaleValidation
 {
-
     /**
      * Returns whether a given locale is supported.
      *
@@ -32,7 +31,6 @@ trait LocaleValidation
         return $this->laravel->make('laravelquerylocalization');
     }
 
-
     protected function determineValidLanguage(string $locale)
     {
         $availableLanguages = collect();
@@ -49,5 +47,3 @@ trait LocaleValidation
         return $result['key'] ?? 'en';
     }
 }
-
-

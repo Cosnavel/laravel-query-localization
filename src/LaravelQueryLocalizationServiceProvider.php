@@ -4,7 +4,6 @@ namespace Cosnavel\LaravelQueryLocalization;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Cosnavel\LaravelQueryLocalization\Commands\LaravelQueryLocalizationCommand;
 
 class LaravelQueryLocalizationServiceProvider extends PackageServiceProvider
 {

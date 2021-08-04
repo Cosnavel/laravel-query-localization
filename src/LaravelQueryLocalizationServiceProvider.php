@@ -7,7 +7,7 @@ use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class LaravelQueryLocalizationServiceProvider extends PackageServiceProvider
 {
-    public function registeringPackage()
+    public function packageRegistered()
     {
         $this->app->singleton(LaravelQueryLocalization::class, function () {
             return new LaravelQueryLocalization();
@@ -28,7 +28,7 @@ class LaravelQueryLocalizationServiceProvider extends PackageServiceProvider
             ->name('laravel-query-localization')
             ->hasConfigFile()
             ->hasViews()
-            ->hasViewComponents('query-localization', [LanguageSelector::class])
+            // ->hasViewComponents('query-localization', [LanguageSelector::class])
             ->hasMigration('add_language_preference_to_users_table');
     }
 }

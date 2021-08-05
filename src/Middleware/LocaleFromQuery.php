@@ -4,18 +4,27 @@ namespace Cosnavel\LaravelQueryLocalization\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
-use Cosnavel\LaravelQueryLocalization\Trait\LocaleValidation;
+use Cosnavel\LaravelQueryLocalization\Facades\LaravelQueryLocalization;
 
 class LocaleFromQuery
 {
     public function handle(Request $request, Closure $next)
     {
         if ($request->get('locale')) {
-            app('laravel-query-localization')->setLocale($request->get('locale'));
+            LaravelQueryLocalization::setLocale($request->get('locale'));
+
+            return $next($request);
         }
-        dump(app('laravel-query-localization'));
-        dump(session('locale'));
+
+
+        if (LaravelQueryLocalization::getConfigRepository()->get('query-localization.useUserLanguagePreference') && auth()->check()) {
+            LaravelQueryLocalization::setLocale(auth()->user()->language_preference);
+
+            return $next($request);
+        }
+
+        $locale = LaravelQueryLocalization::getCurrentLocale();
+        LaravelQueryLocalization::setLocale($locale);
 
         return $next($request);
     }

@@ -5,6 +5,7 @@ namespace Cosnavel\LaravelQueryLocalization\Http\Livewire;
 use Livewire\Component;
 
 use Cosnavel\LaravelQueryLocalization\Trait\AttributesMergeable;
+use Cosnavel\LaravelQueryLocalization\Facades\LaravelQueryLocalization;
 
 class LanguageSelector extends Component
 {
@@ -16,19 +17,19 @@ class LanguageSelector extends Component
     public function mount()
     {
         $this->languages = collect();
-        $languages = collect(LaravelLocalization::getSupportedLocales());
+        $languages = collect(LaravelQueryLocalization::getSupportedLocales());
         foreach ($languages as $key => $language) {
             $language['key'] = $key;
             $this->languages->push($language);
         }
-        $this->activeLanguage = $this->languages->where('key', session('locale'))->keys()->first();
+        $this->activeLanguage = $this->languages->where('key', LaravelQueryLocalization::getCurrentLocale())->keys()->first();
     }
 
     public function updatedActiveLanguage($value)
     {
         $locale = $this->languages->first(fn ($i, $k) => $value == $k)['key'];
 
-        $this->changeAuthUserLanguagePreference($locale);
+        LaravelQueryLocalization::setUserLanguagePreference($locale);
         $this->locale = $locale;
 
         $queryParams = strpos(url()->previous(), '?');
@@ -39,16 +40,9 @@ class LanguageSelector extends Component
         return redirect(substr(url()->previous(), 0) . "?locale={$locale}");
     }
 
-    private function changeAuthUserLanguagePreference(string $locale): void
-    {
-        if (auth()->check()) {
-            auth()->user()->language_preference = $locale;
-            auth()->user()->save();
-        }
-    }
 
     public function render()
     {
-        return view('livewire.language-selector');
+        return view('query-localization::language-selector');
     }
 }

@@ -5,7 +5,10 @@ namespace Cosnavel\LaravelQueryLocalization;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Schema;
 use Cosnavel\LaravelQueryLocalization\LanguageNegotiator;
-use Cosnavel\LaravelQueryLocalization\Trait\LocaleValidation;
+use Cosnavel\LaravelQueryLocalization\Traits\LocaleValidation;
+use Cosnavel\LaravelQueryLocalization\Exceptions\SupportedLocalesNotDefined;
+use Cosnavel\LaravelQueryLocalization\Exceptions\UnsupportedLocaleException;
+use Cosnavel\LaravelQueryLocalization\Exceptions\LanguagePreferenceException;
 
 class LaravelQueryLocalization
 {
@@ -15,15 +18,12 @@ class LaravelQueryLocalization
 
     protected $request;
 
-    protected $currentLocale = false;
+    protected string|bool $currentLocale = false;
 
-    protected $configRepository;
+    protected \Illuminate\Config\Repository $configRepository;
 
-    protected $defaultLocale;
+    protected string $defaultLocale;
 
-    /**
-     * Creates new instance.
-     */
     public function __construct()
     {
         $this->app = app();
@@ -31,13 +31,11 @@ class LaravelQueryLocalization
         $this->configRepository = $this->app['config'];
         $this->request = $this->app['request'];
 
-        // set default locale
         $this->defaultLocale = $this->configRepository->get('app.locale');
         $supportedLocales = $this->getSupportedLocales();
 
         if (empty($supportedLocales[$this->defaultLocale])) {
-            //Todo use custom exception
-            throw new \Exception('Laravel default locale is not in the supportedLocales array.');
+            throw new UnsupportedLocaleException('Laravel default locale is not in the supportedLocales array.');
         }
     }
 
@@ -47,7 +45,7 @@ class LaravelQueryLocalization
      *
      * @return bool Returns value of useAcceptLanguageHeader in config.
      */
-    protected function useAcceptLanguageHeader()
+    protected function useAcceptLanguageHeader(): bool
     {
         return $this->configRepository->get('query-localization.useAcceptLanguageHeader');
     }
@@ -57,25 +55,21 @@ class LaravelQueryLocalization
      *
      * @return array keys of supported languages
      */
-    public function getSupportedLanguagesKeys()
+    public function getSupportedLanguagesKeys(): array
     {
         return array_keys($this->supportedLocales);
     }
 
 
     /**
-     *
-     * @param mixed|null $locale
-     * @return void
+     * Set valid locale
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function setLocale($locale = null): void
+    public function setLocale(string|null $locale = null): void
     {
         $locale = $this->determineValidLanguage($locale);
 
-
         session(['locale' => $locale]);
-
 
         $this->currentLocale = $locale;
 
@@ -86,10 +80,12 @@ class LaravelQueryLocalization
 
     /**
      * Returns current language.
-     *
-     * @return string current language
+     * return the current locale from session or singleton attribute
+     * if none found negotiates locale from acceptLanguageHeaders.
+     * when acceptLanguageHeaders is disabled and no value is availabe in the session,
+     * use default locale
      */
-    public function getCurrentLocale()
+    public function getCurrentLocale(): string
     {
         if ($this->currentLocale) {
             return $this->currentLocale;
@@ -109,12 +105,8 @@ class LaravelQueryLocalization
 
     /**
      * Return an array of all supported Locales.
-     *
-     * @throws SupportedLocalesNotDefined
-     *
-     * @return array
      */
-    public function getSupportedLocales()
+    public function getSupportedLocales(): array
     {
         if (!empty($this->supportedLocales)) {
             return $this->supportedLocales;
@@ -123,8 +115,7 @@ class LaravelQueryLocalization
         $locales = $this->configRepository->get('query-localization.supportedLocales');
 
         if (empty($locales) || !\is_array($locales)) {
-            //Todo use custom exception
-            throw new \Exception();
+            throw new SupportedLocalesNotDefined();
         }
 
         $this->supportedLocales = $locales;
@@ -132,11 +123,10 @@ class LaravelQueryLocalization
         return $locales;
     }
 
-    public function setUserLanguagePreference($locale): void
+    public function setUserLanguagePreference(string $locale): void
     {
         if (!Schema::hasColumn('users', 'language_preference')) {
-            //Todo use custom exception
-            throw new \Exception();
+            throw new LanguagePreferenceException();
         }
 
         if ($this->configRepository->get('query-localization.useUserLanguagePreference') && auth()->check()) {
@@ -149,10 +139,8 @@ class LaravelQueryLocalization
 
     /**
      * Returns the config repository for this instance.
-     *
-     * @return Repository Configuration repository
      */
-    public function getConfigRepository()
+    public function getConfigRepository(): \Illuminate\Config\Repository
     {
         return $this->configRepository;
     }

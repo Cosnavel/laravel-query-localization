@@ -1,10 +1,10 @@
 <?php
 
-namespace Cosnavel\LaravelQueryLocalization\Trait;
+namespace Cosnavel\LaravelQueryLocalization\Traits;
 
 trait LocaleValidation
 {
-    public function determineValidLanguage(string $locale)
+    public function determineValidLanguage(string $locale): string
     {
         $availableLanguages = collect();
         $languages = collect($this->getSupportedLocales());

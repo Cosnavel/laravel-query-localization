@@ -5,7 +5,7 @@ namespace Cosnavel\LaravelQueryLocalization\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Cosnavel\LaravelQueryLocalization\LaravelQueryLocalization
+ * @package Cosnavel\LaravelQueryLocalization\Facades
  */
 class LaravelQueryLocalization extends Facade
 {

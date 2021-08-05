@@ -1,6 +1,6 @@
 <?php
 
-namespace Cosnavel\LaravelQueryLocalization\Trait;
+namespace Cosnavel\LaravelQueryLocalization\Traits;
 
 trait AttributesMergeable
 {

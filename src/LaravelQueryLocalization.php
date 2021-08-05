@@ -3,6 +3,7 @@
 namespace Cosnavel\LaravelQueryLocalization;
 
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Schema;
 use Cosnavel\LaravelQueryLocalization\LanguageNegotiator;
 use Cosnavel\LaravelQueryLocalization\Trait\LocaleValidation;
 
@@ -29,7 +30,6 @@ class LaravelQueryLocalization
 
         $this->configRepository = $this->app['config'];
         $this->request = $this->app['request'];
-        $this->currentLocale = $this->getCurrentLocale();
 
         // set default locale
         $this->defaultLocale = $this->configRepository->get('app.locale');
@@ -64,17 +64,18 @@ class LaravelQueryLocalization
 
 
     /**
-     * Set and return current locale.
      *
-     * @param string $locale Locale to set the App to (optional)
-     *
-     * @return string Returns locale (if route has any) or null (if route does not have a locale)
+     * @param mixed|null $locale
+     * @return void
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function setLocale($locale = null)
+    public function setLocale($locale = null): void
     {
         $locale = $this->determineValidLanguage($locale);
 
+
         session(['locale' => $locale]);
+
 
         $this->currentLocale = $locale;
 
@@ -94,8 +95,6 @@ class LaravelQueryLocalization
             return $this->currentLocale;
         }
 
-        dump(session('locale'));
-        dump(session()->has('locale'));
         if (session()->has('locale')) {
             return session('locale');
         }
@@ -131,5 +130,30 @@ class LaravelQueryLocalization
         $this->supportedLocales = $locales;
 
         return $locales;
+    }
+
+    public function setUserLanguagePreference($locale): void
+    {
+        if (!Schema::hasColumn('users', 'language_preference')) {
+            //Todo use custom exception
+            throw new \Exception();
+        }
+
+        if ($this->configRepository->get('query-localization.useUserLanguagePreference') && auth()->check()) {
+            $locale = $this->determineValidLanguage($locale);
+
+            auth()->user()->language_preference = $locale;
+            auth()->user()->save();
+        }
+    }
+
+    /**
+     * Returns the config repository for this instance.
+     *
+     * @return Repository Configuration repository
+     */
+    public function getConfigRepository()
+    {
+        return $this->configRepository;
     }
 }

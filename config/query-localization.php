@@ -310,5 +310,6 @@ return [
     // If false, system will take app.php locale attribute
     'useAcceptLanguageHeader' => true,
 
+
     'useUserLanguagePreference' => true,
 ];

@@ -24,7 +24,6 @@ class LaravelQueryLocalizationServiceProvider extends PackageServiceProvider
         $this->app->alias(LaravelQueryLocalization::class, 'laravel-query-localization');
     }
 
-
     public function configurePackage(Package $package): void
     {
         /*

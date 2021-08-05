@@ -2,10 +2,10 @@
 
 namespace Cosnavel\LaravelQueryLocalization\Http\Livewire;
 
-use Livewire\Component;
-
 use Cosnavel\LaravelQueryLocalization\Trait\AttributesMergeable;
 use Cosnavel\LaravelQueryLocalization\Facades\LaravelQueryLocalization;
+
+use Livewire\Component;
 
 class LanguageSelector extends Component
 {

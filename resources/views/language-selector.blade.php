@@ -10,9 +10,7 @@
                 :aria-expanded="open" aria-labelledby="{{__('Choose language')}}">
                 <div class="flex items-center">
                     <span>
-                        <x-fas-globe class="h-4 w-4" /></span>
-                    {{-- Uncomment if you want to display a flag in the language selector --}}
-                    {{-- <span x-text="selected.flag"></span> --}}
+                    <span x-text="selected.flag"></span>
                     <span x-text="selected.name" class="ml-2 truncate hidden xs:block"></span>
                 </div>
                 <span class="absolute inset-y-0 right-0 flex items-center pr-1 pointer-events-none">
@@ -44,8 +42,7 @@
                     @mouseenter="activeIndex = {{$key}}" @mouseleave="activeIndex = null"
                     :class="{ 'text-white bg-primary': activeIndex === {{$key}}, 'text-gray-900': !(activeIndex === {{$key}}) }">
                     <div class="flex items-center">
-                        {{-- Uncomment if you want to display a flag in the language selector --}}
-                        {{-- {{$language['flag']}} --}}
+                        {{$language['flag']}}
                         <span x-state:on="Selected" x-state:off="Not Selected" class="font-normal ml-2 block truncate"
                             :class="{ 'font-semibold': selectedIndex === {{$key}}, 'font-normal': !(selectedIndex === {{$key}}) }">
                             {{$language['name']}}

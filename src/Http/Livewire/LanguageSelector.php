@@ -44,7 +44,6 @@ class LanguageSelector extends Component
         return redirect(substr(url()->previous(), 0) . "?locale={$locale}");
     }
 
-
     public function render()
     {
         return view('query-localization::language-selector');

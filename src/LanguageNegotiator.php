@@ -25,6 +25,7 @@ class LanguageNegotiator
         $this->supportedLanguages = $supportedLanguages;
         $this->request = $request;
     }
+
     /**
      * Negotiates language with the user's browser through the Accept-Language
      * HTTP header or the user's host address.
@@ -47,6 +48,7 @@ class LanguageNegotiator
         }
         if (isset($matches['*'])) {
             reset($this->supportedLanguages);
+
             return key($this->supportedLanguages);
         }
         if ($this->request->server('REMOTE_HOST')) {
@@ -56,6 +58,7 @@ class LanguageNegotiator
                 return $lang;
             }
         }
+
         return $this->defaultLocale;
     }
 
@@ -103,6 +106,7 @@ class LanguageNegotiator
             $matches = array_merge($generic_matches, $matches);
             arsort($matches, SORT_NUMERIC);
         }
+
         return $matches;
     }
 }

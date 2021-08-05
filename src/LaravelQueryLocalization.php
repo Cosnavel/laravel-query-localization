@@ -2,10 +2,10 @@
 
 namespace Cosnavel\LaravelQueryLocalization;
 
+use Cosnavel\LaravelQueryLocalization\Trait\LocaleValidation;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Schema;
 use Cosnavel\LaravelQueryLocalization\LanguageNegotiator;
-use Cosnavel\LaravelQueryLocalization\Traits\LocaleValidation;
 use Cosnavel\LaravelQueryLocalization\Exceptions\SupportedLocalesNotDefined;
 use Cosnavel\LaravelQueryLocalization\Exceptions\UnsupportedLocaleException;
 use Cosnavel\LaravelQueryLocalization\Exceptions\LanguagePreferenceException;
@@ -39,7 +39,6 @@ class LaravelQueryLocalization
         }
     }
 
-
     /**
      * Returns the translation key for a given path.
      *
@@ -59,7 +58,6 @@ class LaravelQueryLocalization
     {
         return array_keys($this->supportedLocales);
     }
-
 
     /**
      * Set valid locale
@@ -97,6 +95,7 @@ class LaravelQueryLocalization
 
         if ($this->useAcceptLanguageHeader() && !$this->app->runningInConsole()) {
             $negotiator = new LanguageNegotiator($this->defaultLocale, $this->getSupportedLocales(), $this->request);
+
             return $negotiator->negotiateLanguage();
         }
 

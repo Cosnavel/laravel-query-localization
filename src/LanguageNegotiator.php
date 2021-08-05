@@ -30,6 +30,7 @@ class LanguageNegotiator
      * @var Request
      */
     private $request;
+
     /**
      * @param string $defaultLocale
      * @param array $supportedLanguages
@@ -43,6 +44,7 @@ class LanguageNegotiator
         $this->supportedLanguages = $supportedLanguages;
         $this->request = $request;
     }
+
     /**
      * Negotiates language with the user's browser through the Accept-Language
      * HTTP header or the user's host address.  Language codes are generally in
@@ -63,7 +65,7 @@ class LanguageNegotiator
     {
         $matches = $this->getMatchesFromAcceptedLanguages();
         foreach ($matches as $key => $q) {
-            if (!empty($this->supportedLanguages[$key])) {
+            if (! empty($this->supportedLanguages[$key])) {
                 return $key;
             }
             // Search for acceptable locale by 'regional' => 'af_ZA' or 'lang' => 'af-ZA' match.
@@ -76,17 +78,20 @@ class LanguageNegotiator
         // If any (i.e. "*") is acceptable, return the first supported format
         if (isset($matches['*'])) {
             reset($this->supportedLanguages);
+
             return key($this->supportedLanguages);
         }
         if ($this->request->server('REMOTE_HOST')) {
             $remote_host = explode('.', $this->request->server('REMOTE_HOST'));
             $lang = strtolower(end($remote_host));
-            if (!empty($this->supportedLanguages[$lang])) {
+            if (! empty($this->supportedLanguages[$lang])) {
                 return $lang;
             }
         }
+
         return $this->defaultLocale;
     }
+
     /**
      * Return all the accepted languages from the browser.
      *
@@ -121,7 +126,7 @@ class LanguageNegotiator
                 //less than it's parent.
                 $l_ops = explode('-', $l);
                 array_pop($l_ops);
-                while (!empty($l_ops)) {
+                while (! empty($l_ops)) {
                     //The new generic option needs to be slightly less important than it's base
                     $q -= 0.001;
                     $op = implode('-', $l_ops);
@@ -134,6 +139,7 @@ class LanguageNegotiator
             $matches = array_merge($generic_matches, $matches);
             arsort($matches, SORT_NUMERIC);
         }
+
         return $matches;
     }
 }

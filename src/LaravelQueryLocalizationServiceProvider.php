@@ -2,10 +2,10 @@
 
 namespace Cosnavel\LaravelQueryLocalization;
 
+use Cosnavel\LaravelQueryLocalization\Http\Livewire\LanguageSelector;
 use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Cosnavel\LaravelQueryLocalization\Http\Livewire\LanguageSelector;
 
 class LaravelQueryLocalizationServiceProvider extends PackageServiceProvider
 {
@@ -15,6 +15,7 @@ class LaravelQueryLocalizationServiceProvider extends PackageServiceProvider
             Livewire::component('language-selector', LanguageSelector::class);
         }
     }
+
     public function packageRegistered()
     {
         $this->app->singleton(LaravelQueryLocalization::class, function () {

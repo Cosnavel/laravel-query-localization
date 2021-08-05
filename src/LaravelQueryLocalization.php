@@ -2,10 +2,9 @@
 
 namespace Cosnavel\LaravelQueryLocalization;
 
+use Cosnavel\LaravelQueryLocalization\Trait\LocaleValidation;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Schema;
-use Cosnavel\LaravelQueryLocalization\LanguageNegotiator;
-use Cosnavel\LaravelQueryLocalization\Trait\LocaleValidation;
 
 class LaravelQueryLocalization
 {
@@ -41,7 +40,6 @@ class LaravelQueryLocalization
         }
     }
 
-
     /**
      * Returns the translation key for a given path.
      *
@@ -61,7 +59,6 @@ class LaravelQueryLocalization
     {
         return array_keys($this->supportedLocales);
     }
-
 
     /**
      *
@@ -99,8 +96,9 @@ class LaravelQueryLocalization
             return session('locale');
         }
 
-        if ($this->useAcceptLanguageHeader() && !$this->app->runningInConsole()) {
+        if ($this->useAcceptLanguageHeader() && ! $this->app->runningInConsole()) {
             $negotiator = new LanguageNegotiator($this->defaultLocale, $this->getSupportedLocales(), $this->request);
+
             return $negotiator->negotiateLanguage();
         }
 
@@ -116,13 +114,13 @@ class LaravelQueryLocalization
      */
     public function getSupportedLocales()
     {
-        if (!empty($this->supportedLocales)) {
+        if (! empty($this->supportedLocales)) {
             return $this->supportedLocales;
         }
 
         $locales = $this->configRepository->get('query-localization.supportedLocales');
 
-        if (empty($locales) || !\is_array($locales)) {
+        if (empty($locales) || ! \is_array($locales)) {
             //Todo use custom exception
             throw new \Exception();
         }
@@ -134,7 +132,7 @@ class LaravelQueryLocalization
 
     public function setUserLanguagePreference($locale): void
     {
-        if (!Schema::hasColumn('users', 'language_preference')) {
+        if (! Schema::hasColumn('users', 'language_preference')) {
             //Todo use custom exception
             throw new \Exception();
         }

@@ -2,8 +2,8 @@
 
 namespace Cosnavel\LaravelQueryLocalization\Http\Livewire;
 
-use Cosnavel\LaravelQueryLocalization\Trait\AttributesMergeable;
 use Cosnavel\LaravelQueryLocalization\Facades\LaravelQueryLocalization;
+use Cosnavel\LaravelQueryLocalization\Trait\AttributesMergeable;
 
 use Livewire\Component;
 
@@ -39,7 +39,6 @@ class LanguageSelector extends Component
 
         return redirect(substr(url()->previous(), 0) . "?locale={$locale}");
     }
-
 
     public function render()
     {

@@ -3,8 +3,8 @@
 namespace Cosnavel\LaravelQueryLocalization\Middleware;
 
 use Closure;
-use Illuminate\Http\Request;
 use Cosnavel\LaravelQueryLocalization\Facades\LaravelQueryLocalization;
+use Illuminate\Http\Request;
 
 class LocaleFromQuery
 {

@@ -6,6 +6,19 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/cosnavel/laravel-query-localization.svg?style=flat-square)](https://packagist.org/packages/cosnavel/laravel-query-localization)
 
 ---
+
+Todo:
+
+to use mass assignment for language_preference _> add to fillable
+to use language_preference for user -> publish migration and migrate
+-> publish config
+-> enable useLanguageUserPreference inb Config
+
+
+
+
+
+
 This repo can be used to scaffold a Laravel package. Follow these steps to get started:
 
 1. Press the "Use template" button at the top of this repo to create a new repo with the contents of this laravel-query-localization

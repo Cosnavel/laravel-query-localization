@@ -2,8 +2,8 @@
 
 namespace Cosnavel\LaravelQueryLocalization\Http\Livewire;
 
-use Cosnavel\LaravelQueryLocalization\Traits\AttributesMergeable;
 use Cosnavel\LaravelQueryLocalization\Facades\LaravelQueryLocalization;
+use Cosnavel\LaravelQueryLocalization\Traits\AttributesMergeable;
 use Livewire\Component;
 
 class LanguageSelector extends Component
@@ -29,7 +29,7 @@ class LanguageSelector extends Component
      * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function updatedActiveLanguage(int $value): \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+    public function updatedActiveLanguage(int $value): \Illuminate\Routing\Redirector | \Illuminate\Http\RedirectResponse
     {
         $locale = $this->languages->first(fn ($i, $k) => $value == $k)['key'];
 

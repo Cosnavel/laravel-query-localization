@@ -7,36 +7,22 @@
 
 ---
 
-Todo:
+Use this package to localize your application. 
 
-to use mass assignment for language_preference _> add to fillable
-to use language_preference for user -> publish migration and migrate
--> publish config
--> enable useLanguageUserPreference inb Config
+###Features:
 
+- Localization based on a query string.
+- Includes a Livewire language selector component.
+- Optionally stores the user language preference to the users table.
 
+###Requirements:
 
+- Laravel 8
+- Livewire 2
+- Tailwind 2
+- AlpineJs 2
 
-
-
-This repo can be used to scaffold a Laravel package. Follow these steps to get started:
-
-1. Press the "Use template" button at the top of this repo to create a new repo with the contents of this laravel-query-localization
-2. Run "./configure-laravel-query-localization.sh" to run a script that will replace all placeholders throughout all the files
-3. Remove this block of text.
-4. Have fun creating your package.
-5. If you need help creating a package, consider picking up our <a href="https://laravelpackage.training">Laravel Package Training</a> video course.
 ---
-
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
-
-## Support us
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/laravel-query-localization.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/laravel-query-localization)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
 
 ## Installation
 
@@ -67,10 +53,14 @@ return [
 
 ## Usage
 
-```php
-$laravel-query-localization = new Cosnavel\LaravelQueryLocalization();
-echo $laravel-query-localization->echoPhrase('Hello, Spatie!');
-```
+### Language Preference
+
+If you want to save the language preference to the users table:
+
+- publish the config file
+- enable ```useLanguageUserPreference``` in the config file
+- publish and run the migrations
+- if you want to use mass assignment for the ```language_preference``` field in the users table add the field to the fillables of the user model
 
 ## Testing
 

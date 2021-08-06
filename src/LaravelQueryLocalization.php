@@ -92,7 +92,7 @@ class LaravelQueryLocalization
             return session('locale');
         }
 
-        if ($this->useAcceptLanguageHeader() && !$this->app->runningInConsole()) {
+        if ($this->useAcceptLanguageHeader() && ! $this->app->runningInConsole()) {
             $negotiator = new LanguageNegotiator($this->defaultLocale, $this->getSupportedLocales(), $this->request);
 
             return $negotiator->negotiateLanguage();
@@ -106,13 +106,13 @@ class LaravelQueryLocalization
      */
     public function getSupportedLocales(): array
     {
-        if (!empty($this->supportedLocales)) {
+        if (! empty($this->supportedLocales)) {
             return $this->supportedLocales;
         }
 
         $locales = $this->configRepository->get('query-localization.supportedLocales');
 
-        if (empty($locales) || !\is_array($locales)) {
+        if (empty($locales) || ! \is_array($locales)) {
             throw new SupportedLocalesNotDefined();
         }
 
@@ -123,7 +123,7 @@ class LaravelQueryLocalization
 
     public function setUserLanguagePreference(string $locale): void
     {
-        if (!Schema::hasColumn('users', 'language_preference')) {
+        if (! Schema::hasColumn('users', 'language_preference')) {
             throw new LanguagePreferenceException();
         }
 

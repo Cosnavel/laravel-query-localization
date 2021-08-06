@@ -134,6 +134,10 @@ If you're supporting multiple locales in your project, you will probably want to
 
 Included in this package is a language selector. The Language Selector is built with Tailwind, Alpine & Livewire.
 
+
+![CleanShot 2021-08-06 at 11 22 47](https://user-images.githubusercontent.com/42392570/128573116-049cafde-1c95-4ab1-bb2b-e6c40e801e8a.gif)
+
+
 ### Alpine
 The Language Picker requires Alpine. You can use the official CDN to quickly include Alpine:
 

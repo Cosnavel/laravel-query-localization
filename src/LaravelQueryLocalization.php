@@ -5,7 +5,7 @@ namespace Cosnavel\LaravelQueryLocalization;
 use Cosnavel\LaravelQueryLocalization\Exceptions\LanguagePreferenceException;
 use Cosnavel\LaravelQueryLocalization\Exceptions\SupportedLocalesNotDefined;
 use Cosnavel\LaravelQueryLocalization\Exceptions\UnsupportedLocaleException;
-use Cosnavel\LaravelQueryLocalization\Trait\LocaleValidation;
+use Cosnavel\LaravelQueryLocalization\Traits\LocaleValidation;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Schema;
 

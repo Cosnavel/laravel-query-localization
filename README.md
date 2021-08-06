@@ -1,5 +1,4 @@
 ![laravel-package_2](https://user-images.githubusercontent.com/42392570/128426801-fe9ad4cc-1063-4fb3-9e0e-62a5e9dfaaf2.png)
-
 # Query String Localization Package for Laravel
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/cosnavel/laravel-query-localization.svg?style=flat-square)](https://packagist.org/packages/cosnavel/laravel-query-localization)

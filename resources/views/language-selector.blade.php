@@ -4,7 +4,7 @@
 
         <div class="relative">
             <button type="button"
-                class="relative w-full bg-white border border-gray-300 rounded shadow-sm pl-2 pr-7 py-1 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-sm"
+                class="relative w-full bg-white border border-gray-300 rounded shadow-sm pl-2 pr-7 py-1 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 text-sm"
                 x-ref="button" @keydown.arrow-up.stop.prevent="onButtonClick()"
                 @keydown.arrow-down.stop.prevent="onButtonClick()" @click="onButtonClick()" aria-haspopup="listbox"
                 :aria-expanded="open" aria-labelledby="{{__('Choose language')}}">
@@ -40,7 +40,7 @@
                     x-description="Select option, manage highlight styles based on mouseenter/mouseleave and keyboard navigation."
                     id="listbox-option-{{$key}}" role="option" @click="choose({{$key}})"
                     @mouseenter="activeIndex = {{$key}}" @mouseleave="activeIndex = null"
-                    :class="{ 'text-white bg-primary': activeIndex === {{$key}}, 'text-gray-900': !(activeIndex === {{$key}}) }">
+                    :class="{ 'text-white bg-indigo-500': activeIndex === {{$key}}, 'text-gray-900': !(activeIndex === {{$key}}) }">
                     <div class="flex items-center">
                         {{$language['flag']}}
                         <span x-state:on="Selected" x-state:off="Not Selected" class="font-normal ml-2 block truncate"
@@ -48,12 +48,11 @@
                             {{$language['name']}}
                         </span>
                     </div>
-
                     <span x-description="Checkmark, only display for selected option." x-state:on="Highlighted"
                         x-state:off="Not Highlighted"
-                        class="text-primary absolute inset-y-0 right-0 flex items-center pr-4"
-                        :class="{ 'text-white': activeIndex === {{$key}}, 'text-primary': !(activeIndex === {{$key}}) }"
-                        x-show="selectedIndex === {{$key}}" style="display: none;">
+                        class="text-indigo-500 absolute inset-y-0 right-0 flex items-center pr-4"
+                        :class="{ 'text-white': activeIndex === {{$key}}, 'text-indigo-500': !(activeIndex === {{$key}}) }"
+                        x-show="selectedIndex == {{$key}}" style="display: none;">
                         <svg class="h-5 w-5" x-description="Heroicon name: solid/check"
                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                             aria-hidden="true">

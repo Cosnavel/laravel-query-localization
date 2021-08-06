@@ -11,11 +11,9 @@ class TestCase extends Orchestra
     protected $localization;
 
     protected $locales = [
-        'de'          => ['name' => 'Deutsch',                 'script' => 'Latn', 'native' => 'Deutsch', 'regional' => 'de_DE', 'flag' => '🇩🇪'],
-        'en'          => ['name' => 'English',                'script' => 'Latn', 'native' => 'English', 'regional' => 'en_US', 'flag' => '🇺🇸'],
+        'de' => ['name' => 'Deutsch',                 'script' => 'Latn', 'native' => 'Deutsch', 'regional' => 'de_DE', 'flag' => '🇩🇪'],
+        'en' => ['name' => 'English',                'script' => 'Latn', 'native' => 'English', 'regional' => 'en_US', 'flag' => '🇺🇸'],
     ];
-
-
 
     public function setUp(): void
     {

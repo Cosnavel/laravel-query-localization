@@ -8,44 +8,68 @@
 
 ---
 
-Todo:
+Use this package to localize your laravel application via query strings easily.
 
-to use mass assignment for language_preference _> add to fillable
-to use language_preference for user -> publish migration and migrate
--> publish config
--> enable useLanguageUserPreference inb Config
+### Features:
 
-
-
+- Localization based on a query string.
+- Includes a Livewire language selector component.
+- Optionally stores the user language preference to the user's table and apply it for every session.
 
 
-
-This repo can be used to scaffold a Laravel package. Follow these steps to get started:
-
-1. Press the "Use template" button at the top of this repo to create a new repo with the contents of this laravel-query-localization
-2. Run "./configure-laravel-query-localization.sh" to run a script that will replace all placeholders throughout all the files
-3. Remove this block of text.
-4. Have fun creating your package.
-5. If you need help creating a package, consider picking up our <a href="https://laravelpackage.training">Laravel Package Training</a> video course.
 ---
-
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
-
-## Support us
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/laravel-query-localization.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/laravel-query-localization)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
 
 ## Installation
 
-You can install the package via composer:
+To get started, require the package via composer:
 
 ```bash
 composer require cosnavel/laravel-query-localization
 ```
+
+
+### Config File
+
+You can publish the config file with:
+```bash
+php artisan vendor:publish --provider="Cosnavel\LaravelQueryLocalization\LaravelQueryLocalizationServiceProvider" --tag="laravel-query-localization-config"
+```
+
+After publishing, *config query-localization.php* will be created.
+
+The configuration options are:
+
+- **supportedLocales** Languages of your app (Default: English & German).
+
+- **useAcceptLanguageHeader** If true, then automatically detect language from browser.
+
+
+- **useUserLanguagePreference** If true, save the language preference of an authenticated user in the database and apply the preference on each session
+
+## Usage
+
+### Register Middleware
+
+To get started, register the LocaleFromQuery middleware for the Route Group that needs to be localized.
+
+```php
+// routes/web.php
+
+
+Route::middleware(LocaleFromQuery::class)->group(function () {
+    Route::view('/', 'welcome');
+});
+```
+
+
+### User Language Preference
+
+
+If you want to save the language preference to the users table:
+
+- publish the config file
+- enable ```useLanguageUserPreference``` in the config file
+- publish and run the migrations
 
 You can publish and run the migrations with:
 
@@ -54,24 +78,92 @@ php artisan vendor:publish --provider="Cosnavel\LaravelQueryLocalization\Laravel
 php artisan migrate
 ```
 
-You can publish the config file with:
+- if you want to use mass assignment for the ```language_preference``` field in the users table make the field fillable in the user model
+
+
+
+## Helpers
+
+### Get Supported Locales
+
+Return all supported locales and their properties as an array.
+
+```php
+Cosnavel\LaravelQueryLocalization\Facades\LaravelQueryLocalization::getSupportedLocales();
+```
+
+### Get Current Locale
+
+Return the key of the current locale.
+- Return the current locale from the session
+- if none found, it negotiates locale from acceptLanguageHeaders.
+- when acceptLanguageHeaders option is disabled, and no value is available in the session, use the applications default locale
+
+```php
+Cosnavel\LaravelQueryLocalization\Facades\LaravelQueryLocalization::getCurrentLocale();
+```
+
+### Determine Valid Locales
+
+Checks if the passed locale is a supportedLocale (check the config to add your needed locales). If it is not, the returned locale is the application's default locale.
+
+```php
+Cosnavel\LaravelQueryLocalization\Facades\LaravelQueryLocalization::determineValidLanguage('en');
+```
+
+### Set Locale
+
+Set locale programmatically. Internally the passed locale gets determined if it's a valid locale.
+
+```php
+Cosnavel\LaravelQueryLocalization\Facades\LaravelQueryLocalization::setLocale('en');
+```
+### Set User Language Preference
+
+Set an authed user's language preference. The passed language will also be checked for availability.
+
+```php
+Cosnavel\LaravelQueryLocalization\Facades\LaravelQueryLocalization::setUserLanguagePreference('en');
+```
+
+
+
+## Language Selector
+
+If you're supporting multiple locales in your project, you will probably want to provide the users with a way to change the language.
+
+Included in this package is a language selector. The Language Selector is built with Tailwind, Alpine & Livewire.
+
+### Alpine
+The Language Picker requires Alpine. You can use the official CDN to quickly include Alpine:
+
+```html
+<!-- Alpine v2 -->
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+
+<!-- Alpine v3 -->
+<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+```
+
+### Usage
+
+Just include the Livewire Component in your blade view. All available locales from your config will be used.
+
+ ```blade
+ @livewire('language-selector')
+ ```
+ When *useUserLanguagePreference* is enabled, the language preference of an authenticated user will be set.
+
+
+If you don't want to use Tailwind or want to customize the language picker, I recommend that you publish the component the markup as you like.
+
 ```bash
-php artisan vendor:publish --provider="Cosnavel\LaravelQueryLocalization\LaravelQueryLocalizationServiceProvider" --tag="laravel-query-localization-config"
+
+php artisan vendor:publish --provider="Cosnavel\LaravelQueryLocalization\LaravelQueryLocalizationServiceProvider" --tag="laravel-query-localization-views"
+
 ```
 
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
-
-## Usage
-
-```php
-$laravel-query-localization = new Cosnavel\LaravelQueryLocalization();
-echo $laravel-query-localization->echoPhrase('Hello, Spatie!');
-```
 
 ## Testing
 
@@ -79,21 +171,16 @@ echo $laravel-query-localization->echoPhrase('Hello, Spatie!');
 composer test
 ```
 
-## Changelog
-
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 
 ## Contributing
 
 Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
 
-## Security Vulnerabilities
-
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
-
 ## Credits
 
 - [Cosnavel](https://github.com/Cosnavel)
+- [Rheamars](https://github.com/Rheamars)
+- [Lotti](https://twitter.com/CharlotteZaspel) Thanks for the artwork
 - [All Contributors](../../contributors)
 
 ## License

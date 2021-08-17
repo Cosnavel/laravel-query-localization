@@ -6,7 +6,6 @@ use Cosnavel\LaravelQueryLocalization\LaravelQueryLocalization;
 
 class LaravelQueryLocalizationTest extends TestCase
 {
-
     /** @test */
     public function it_can_resolve_the_localization_manager()
     {
@@ -34,7 +33,6 @@ class LaravelQueryLocalizationTest extends TestCase
         $this->localization->setLocale('ru');
         $this->assertEquals($this->localization->getCurrentLocale(), 'en');
     }
-
 
     /** @test */
     public function it_can_get_the_supported_locales()

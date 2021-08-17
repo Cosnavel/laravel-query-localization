@@ -3,7 +3,7 @@
 namespace Cosnavel\LaravelQueryLocalization\Macros;
 
 use Cosnavel\LaravelQueryLocalization\Facades\LaravelQueryLocalization;
-use Cosnavel\LaravelQueryLocalization\Middleware\LocaleFromQuery;
+use Cosnavel\LaravelQueryLocalization\Middleware\LocaleFromRoute;
 
 class RouterMacros
 {
@@ -18,7 +18,7 @@ class RouterMacros
             return $this->group([], function () use ($translationRoutes, $action, $routeName) {
                 foreach ($translationRoutes as $language => $translatedRoute) {
                     $this->group([
-                        'prefix' => $translatedRoute, 'middleware' => LocaleFromQuery::with([
+                        'prefix' => $translatedRoute, 'middleware' => LocaleFromRoute::with([
                             'translatedRoute' => $language,
                         ]),
                     ], function () use ($action, $routeName) {

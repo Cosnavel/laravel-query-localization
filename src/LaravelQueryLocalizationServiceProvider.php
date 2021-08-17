@@ -3,6 +3,8 @@
 namespace Cosnavel\LaravelQueryLocalization;
 
 use Cosnavel\LaravelQueryLocalization\Http\Livewire\LanguageSelector;
+use Cosnavel\LaravelQueryLocalization\Macros\RouterMacros;
+use Illuminate\Routing\Router;
 use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -14,6 +16,7 @@ class LaravelQueryLocalizationServiceProvider extends PackageServiceProvider
         if (class_exists(Livewire::class)) {
             Livewire::component('language-selector', LanguageSelector::class);
         }
+        Router::mixin(new RouterMacros());
     }
 
     public function packageRegistered()

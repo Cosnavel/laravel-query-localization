@@ -16,7 +16,7 @@ class LaravelQueryLocalizationServiceProvider extends PackageServiceProvider
         if (class_exists(Livewire::class)) {
             Livewire::component('language-selector', LanguageSelector::class);
         }
-        Router::mixin(new RouterMacros);
+        Router::mixin(new RouterMacros());
     }
 
     public function packageRegistered()

@@ -10,7 +10,7 @@ class LanguageSelector extends Component
 {
     use AttributesMergeable;
 
-    public string $activeLanguage;
+    public int $activeLanguage;
     public \Illuminate\Support\Collection $languages;
 
     public function mount(): void

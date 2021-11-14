@@ -74,7 +74,7 @@ If you want to save the language preference to the users table:
 You can publish and run the migrations with:
 
 ```bash
-php artisan vendor:publish --provider="Cosnavel\LaravelQueryLocalization\LaravelQueryLocalizationServiceProvider" --tag="laravel-query-localization-migrations"
+php artisan vendor:publish --provider="Cosnavel\LaravelQueryLocalization\LaravelQueryLocalizationServiceProvider" --tag="query-localization-migrations"
 php artisan migrate
 ```
 
@@ -169,7 +169,7 @@ If you don't want to use Tailwind or want to customize the language picker, I re
 
 ```bash
 
-php artisan vendor:publish --provider="Cosnavel\LaravelQueryLocalization\LaravelQueryLocalizationServiceProvider" --tag="laravel-query-localization-views"
+php artisan vendor:publish --provider="Cosnavel\LaravelQueryLocalization\LaravelQueryLocalizationServiceProvider" --tag="query-localization-views"
 
 ```
 

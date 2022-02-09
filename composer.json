@@ -1,13 +1,12 @@
 {
     "name": "cosnavel/laravel-query-localization",
     "description": "Query String Localization Package for Laravel",
+    "license": "MIT",
     "keywords": [
         "Cosnavel",
         "laravel",
         "laravel-query-localization"
     ],
-    "homepage": "https://github.com/cosnavel/laravel-query-localization",
-    "license": "MIT",
     "authors": [
         {
             "name": "Cosnavel",
@@ -15,9 +14,10 @@
             "role": "Developer"
         }
     ],
+    "homepage": "https://github.com/cosnavel/laravel-query-localization",
     "require": {
         "php": "^8.0",
-        "illuminate/contracts": "^8.73 | ^9.0",
+        "illuminate/contracts": "^8.73 || ^9.0",
         "spatie/laravel-package-tools": "^1.4.3",
         "timacdonald/has-parameters": "^1.3"
     },
@@ -25,7 +25,7 @@
         "brianium/paratest": "^6.2",
         "livewire/livewire": "^2.10",
         "nunomaduro/collision": "^5.3",
-        "orchestra/testbench": "^6.23 | ^7.0",
+        "orchestra/testbench": "^6.23 || ^7.0",
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan-deprecation-rules": "^1.0",
         "phpstan/phpstan-phpunit": "^1.0",
@@ -33,6 +33,8 @@
         "spatie/laravel-ray": "^1.23",
         "vimeo/psalm": "^4.8"
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "Cosnavel\\LaravelQueryLocalization\\": "src",
@@ -44,29 +46,27 @@
             "Cosnavel\\LaravelQueryLocalization\\Tests\\": "tests"
         }
     },
+    "config": {
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "phpstan/extension-installer": true
+        },
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "aliases": {
+                "LaravelQueryLocalization": "Cosnavel\\LaravelQueryLocalization\\LaravelQueryLocalizationFacade"
+            },
+            "providers": [
+                "Cosnavel\\LaravelQueryLocalization\\LaravelQueryLocalizationServiceProvider"
+            ]
+        }
+    },
     "scripts": {
         "analyse": "vendor/bin/phpstan analyse",
         "psalm": "vendor/bin/psalm",
         "test": "./vendor/bin/testbench package:test --no-coverage",
         "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
-    },
-    "config": {
-        "sort-packages": true,
-        "allow-plugins": {
-            "composer/package-versions-deprecated": true,
-            "phpstan/extension-installer": true
-        }
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Cosnavel\\LaravelQueryLocalization\\LaravelQueryLocalizationServiceProvider"
-            ],
-            "aliases": {
-                "LaravelQueryLocalization": "Cosnavel\\LaravelQueryLocalization\\LaravelQueryLocalizationFacade"
-            }
-        }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    }
 }

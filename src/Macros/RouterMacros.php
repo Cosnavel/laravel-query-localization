@@ -15,12 +15,11 @@ class RouterMacros
                 $translationRoutes[$lang] = trans($routeTranslationKey, [], $lang);
             }
 
+
             return $this->group([], function () use ($translationRoutes, $action, $routeName) {
                 foreach ($translationRoutes as $language => $translatedRoute) {
                     $this->group([
-                        'prefix' => $translatedRoute, 'middleware' => LocaleFromQuery::with([
-                            'translatedRoute' => $language,
-                        ]),
+                        'prefix' => $translatedRoute, 'middleware' => LocaleFromQuery::class.":$language",
                     ], function () use ($action, $routeName) {
                         $this->get('/', $action)->name($routeName);
                     });

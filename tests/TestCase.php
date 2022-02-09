@@ -2,10 +2,10 @@
 
 namespace Cosnavel\LaravelQueryLocalization\Tests;
 
-use Orchestra\Testbench\TestCase as Orchestra;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Cosnavel\LaravelQueryLocalization\LaravelQueryLocalizationServiceProvider;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Livewire\LivewireServiceProvider;
+use Orchestra\Testbench\TestCase as Orchestra;
 
 abstract class TestCase extends Orchestra
 {

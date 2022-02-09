@@ -2,9 +2,10 @@
 
 namespace Cosnavel\LaravelQueryLocalization\Tests;
 
-use Cosnavel\LaravelQueryLocalization\LaravelQueryLocalizationServiceProvider;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Cosnavel\LaravelQueryLocalization\LaravelQueryLocalizationServiceProvider;
+use Livewire\LivewireServiceProvider;
 
 abstract class TestCase extends Orchestra
 {
@@ -27,6 +28,7 @@ abstract class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
+            LivewireServiceProvider::class,
             LaravelQueryLocalizationServiceProvider::class,
         ];
     }
@@ -44,10 +46,5 @@ abstract class TestCase extends Orchestra
             'query-localization.useAcceptLanguageHeader' => true,
             'query-localization.useUserLanguagePreference' => true,
         ]);
-
-        /*
-        include_once __DIR__.'/../database/migrations/create_laravel-query-localization_table.php.stub';
-        (new \CreatePackageTable())->up();
-        */
     }
 }
